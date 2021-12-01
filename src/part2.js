@@ -25,19 +25,14 @@ const runProgram = () => {
                     .send(`Error: ${err}`);
             } else {
                 const jsonData = JSON.parse(data);
-                // const newPixel = generatePixel(jsonData);
-                const id = new IdGeneratorSingleton();
-                
                 const newPixel = generatePixel(jsonData);
                 jsonData.push(newPixel);
                 fs.writeFile(PIXEL_JSON_FILE_PATH, JSON.stringify(jsonData), (err) => {
                     if (err) {
-                        console.log('err', err);
                         response
                             .status(500)
                             .send(`Error: ${err}`);
                     } else {
-                        console.log('new pixel appended');
                         response
                             .status(200)
                             .send(newPixel);
