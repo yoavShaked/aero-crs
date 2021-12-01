@@ -28,7 +28,7 @@ const Pixel = function (pixelA, pixelB, r,g,b) {
     }
 }
 
-const generatePixel = (pixels) => {
+const generatePixel = (pixels = []) => {
     let newPixel
     if(pixels.length >= 2) {
         if (pixels.length % 2 === 0) {
