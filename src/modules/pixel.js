@@ -5,7 +5,7 @@ const getDefaultGeneValue = (value) => !isNaN(value) ? value : randomGeneValue()
 
 const Pixel = function (pixelA, pixelB, r,g,b) {
 
-    this.id = parseInt((new IdGeneratorSingleton()).getID());
+    this.id = parseInt((new IdGeneratorSingleton()).getNewId());
 
     if (pixelA && pixelB) {
         const {genes: genesA} = pixelA;

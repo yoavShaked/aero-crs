@@ -1,6 +1,7 @@
 const fs = require('fs');
 const express = require('express');
 const {generatePixel} = require('./modules/pixel');
+const IdGeneratorSingleton = require('./modules/IdGeneratorSingleton');
 const app = express();
 const router = express.Router();
 const bodyParser = require("body-parser");
@@ -24,6 +25,9 @@ const runProgram = () => {
                     .send(`Error: ${err}`);
             } else {
                 const jsonData = JSON.parse(data);
+                // const newPixel = generatePixel(jsonData);
+                const id = new IdGeneratorSingleton();
+                
                 const newPixel = generatePixel(jsonData);
                 jsonData.push(newPixel);
                 fs.writeFile(PIXEL_JSON_FILE_PATH, JSON.stringify(jsonData), (err) => {
