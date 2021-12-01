@@ -1,12 +1,11 @@
 const {randomGeneValue, random} = require('../utils');
-const IdGenerator = require('./idGenerator');
-const idGenerator = new IdGenerator();
+const IdGeneratorSingleton = require('./IdGeneratorSingleton');
 
 const getDefaultGeneValue = (value) => !isNaN(value) ? value : randomGeneValue();
 
 const Pixel = function (pixelA, pixelB, r,g,b) {
 
-    this.id = parseInt(idGenerator.getID());
+    this.id = parseInt((new IdGeneratorSingleton()).getID());
 
     if (pixelA && pixelB) {
         const {genes: genesA} = pixelA;
@@ -29,4 +28,20 @@ const Pixel = function (pixelA, pixelB, r,g,b) {
     }
 }
 
-module.exports = Pixel;
+const generatePixel = (pixels) => {
+    let newPixel
+    if(pixels.length >= 2) {
+        if (pixels.length % 2 === 0) {
+            newPixel = new Pixel(pixels[pixels.length - 1], pixels[pixels.length - 2])
+        } else {
+            newPixel = new Pixel(pixels[pixels.length - 2], pixels[pixels.length - 3])
+        }
+    }
+    else {
+        newPixel = new Pixel();
+    }
+
+    return newPixel;    
+}
+
+module.exports = {generatePixel};
